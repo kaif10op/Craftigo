@@ -139,6 +139,29 @@ export const searchJobs = async (query: string, location: string, page: number =
     }
   }
 
+  if (results.length === 0) {
+    results = [
+      {
+        id: "mock-1",
+        title: "Senior Full Stack Engineer",
+        company: { display_name: "TechNova Solutions" },
+        location: { display_name: "Remote" },
+        description: "Looking for an expert React and Node.js developer to lead our core product rewrite. High-ticket opportunity for elite freelancers.",
+        created: new Date().toISOString(),
+        redirect_url: "#",
+      },
+      {
+        id: "mock-2",
+        title: "Frontend Architect",
+        company: { display_name: "Creative Core Agency" },
+        location: { display_name: "New York, NY" },
+        description: "Seeking a wizard in Framer Motion, Tailwind, and React to build award-winning agency websites.",
+        created: new Date().toISOString(),
+        redirect_url: "#",
+      }
+    ];
+  }
+
   return results;
 };
 
@@ -148,7 +171,7 @@ const callOpenAICompatible = async (provider: any, system: string, user: string,
     headers: {
       "Authorization": `Bearer ${provider.key}`,
       "Content-Type": "application/json",
-      "X-Title": "Proposal Pro Elite",
+      "X-Title": "Craftigo Elite",
     },
     body: JSON.stringify({
       model: provider.model,
@@ -241,6 +264,17 @@ STRUCTURE:
       lastError = err;
       console.warn(`Provider ${provider.name} failed. Pivoting to next node...`, err);
     }
+  }
+
+  if (PROVIDERS.every(p => !p.key)) {
+    const mockResponse = `### Diagnostic Analysis\nBased on the market signal, this requires high-end architectural oversight.\n\n### Technical Approach\nI will leverage ${skills || 'your key abilities'} to build a highly scalable, fault-tolerant system that outpaces your competition.\n\n### Logistics\nDeployment ready in 4 weeks.\n\n### Performance Rate\n${hourlyRate || "$150/hr"} (Elite Retainer)`;
+    
+    const chunks = mockResponse.split(" ");
+    for (const chunk of chunks) {
+      onChunk(chunk + " ", "Mock Intelligence Node");
+      await new Promise(r => setTimeout(r, 50));
+    }
+    return;
   }
 
   throw lastError || new Error("All Intelligence Nodes Congested. Manual bypass recommended.");

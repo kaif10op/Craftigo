@@ -70,7 +70,7 @@ const Subscription = () => {
           key: import.meta.env.VITE_RAZORPAY_KEY_ID || "rzp_test_placeholder",
           amount: planName === "Architect Pro" ? 49900 : 99900,
           currency: "INR",
-          name: "Proposal Pro",
+          name: "Craftigo",
           description: `${planName} Subscription`,
           image: "https://api.iconify.design/lucide:sparkles.svg?color=%2310b981",
           handler: function (response: any) {
@@ -78,7 +78,7 @@ const Subscription = () => {
           },
           prefill: {
             name: "Freelancer",
-            email: "ops@proposalpro.ai",
+            email: "ops@craftigo.ai",
           },
           theme: {
             color: "#10b981",
